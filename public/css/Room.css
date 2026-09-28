@@ -6067,9 +6067,243 @@ z-index:
     - 4 whiteboard
     - 5 chat group
     - 5 polls
-    - 5 transcription 
+    - 5 transcription
     - 6 settings
     - 7 participants/lobby
     - 8 send receive progress
     - 9 room/user emoji
 */
+
+/*--------------------------------------------------------------
+# G4Meet Top Bar
+--------------------------------------------------------------*/
+
+.g4-top-bar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    /* Local z-index scale (see bottom of file): stay above video (1) and its
+       menu bar (2), but below every panel (chat/settings/participants/etc. 4-9)
+       so an open panel always draws over the top bar instead of clipping it. */
+    z-index: 3;
+    display: flex;
+    align-items: center;
+    gap: var(--space-3, 12px);
+    height: 52px;
+    padding: 0 var(--space-4, 16px);
+    background: var(--surface-2, rgba(255, 255, 255, 0.08));
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+    color: var(--fg-1, #fff);
+    box-sizing: border-box;
+}
+
+.g4-top-bar__brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    min-width: 0;
+}
+
+.g4-top-bar__logo {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.g4-top-bar__name {
+    font-size: var(--font-md, 16px);
+    font-weight: var(--fw-semibold, 600);
+    color: var(--fg-1, #fff);
+    white-space: nowrap;
+}
+
+.g4-top-bar__meeting {
+    display: flex;
+    align-items: center;
+    gap: var(--space-1, 4px);
+    background: var(--surface-1, rgba(255, 255, 255, 0.04));
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+    color: var(--fg-2, rgba(255, 255, 255, 0.78));
+    font-size: var(--font-sm, 13px);
+    padding: var(--space-1, 4px) var(--space-3, 12px);
+    border-radius: var(--radius-pill, 999px);
+    cursor: pointer;
+    transition: background var(--motion-fast, 120ms) var(--ease-standard, ease);
+    max-width: 220px;
+}
+
+.g4-top-bar__meeting:hover {
+    background: var(--surface-2, rgba(255, 255, 255, 0.08));
+}
+
+.g4-top-bar__meeting-id {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.g4-top-bar__spacer {
+    flex: 1 1 auto;
+}
+
+.g4-top-bar__icon-btn,
+.g4-theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 36px;
+    height: 36px;
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-md, 12px);
+    background: var(--surface-1, rgba(255, 255, 255, 0.04));
+    color: var(--fg-1, #fff);
+    font-size: var(--font-md, 16px);
+    cursor: pointer;
+    transition:
+        background var(--motion-fast, 120ms) var(--ease-standard, ease),
+        transform var(--motion-fast, 120ms) var(--ease-standard, ease);
+    flex-shrink: 0;
+}
+
+.g4-top-bar__icon-btn:hover,
+.g4-theme-toggle:hover {
+    background: var(--surface-3, rgba(255, 255, 255, 0.14));
+    transform: scale(1.05);
+}
+
+/* Network status */
+
+.g4-network-status-wrap {
+    position: relative;
+}
+
+.g4-network-status {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2, 8px);
+    height: 36px;
+    padding: 0 var(--space-3, 12px);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
+    border-radius: var(--radius-pill, 999px);
+    background: var(--surface-1, rgba(255, 255, 255, 0.04));
+    color: var(--fg-2, rgba(255, 255, 255, 0.78));
+    font-size: var(--font-sm, 13px);
+    cursor: pointer;
+}
+
+.g4-network-status__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--color-warning, #f59e0b);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    flex-shrink: 0;
+}
+
+.g4-network-status.is-connected .g4-network-status__dot {
+    background: var(--color-success, #22c55e);
+    box-shadow: 0 0 0 3px rgba(34, 197, 94, 0.2);
+}
+
+.g4-network-status.is-connecting .g4-network-status__dot {
+    background: var(--color-warning, #f59e0b);
+    box-shadow: 0 0 0 3px rgba(245, 158, 11, 0.2);
+    animation: g4NetworkPulse 1.4s ease-in-out infinite;
+}
+
+.g4-network-status.is-failed .g4-network-status__dot {
+    background: var(--color-danger, #ef4444);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
+@keyframes g4NetworkPulse {
+    0%,
+    100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.4;
+    }
+}
+
+.g4-network-popover {
+    position: absolute;
+    top: calc(100% + 8px);
+    right: 0;
+    width: 220px;
+    background: var(--surface-3, #1e293b);
+    border: 1px solid var(--border-strong, rgba(255, 255, 255, 0.2));
+    border-radius: var(--radius-md, 12px);
+    box-shadow: var(--box-shadow);
+    padding: var(--space-3, 12px);
+    z-index: var(--z-tooltip, 1200);
+    color: var(--fg-1, #fff);
+}
+
+.g4-network-popover__title {
+    font-weight: var(--fw-semibold, 600);
+    font-size: var(--font-sm, 13px);
+    margin-bottom: var(--space-2, 8px);
+}
+
+.g4-network-popover__row {
+    display: flex;
+    justify-content: space-between;
+    font-size: var(--font-xs, 11px);
+    padding: 2px 0;
+    color: var(--fg-2, rgba(255, 255, 255, 0.78));
+}
+
+.g4-network-popover__row--muted {
+    color: var(--fg-disabled, rgba(255, 255, 255, 0.32));
+}
+
+.g4-network-popover__note {
+    margin-top: var(--space-2, 8px);
+    font-size: var(--font-xs, 11px);
+    color: var(--fg-disabled, rgba(255, 255, 255, 0.32));
+    font-style: italic;
+}
+
+/* Exit / leave button: always danger-colored, never blends with neutral controls */
+#exitButton.g4-btn-danger {
+    background: var(--color-danger, #ef4444) !important;
+}
+
+#exitButton.g4-btn-danger:hover {
+    background: var(--color-danger-strong, #dc2626) !important;
+}
+
+@media (max-width: 640px) {
+    .g4-top-bar {
+        height: 46px;
+        padding: 0 var(--space-2, 8px);
+        gap: var(--space-2, 8px);
+    }
+
+    .g4-top-bar__name {
+        display: none;
+    }
+
+    .g4-top-bar__meeting-id {
+        max-width: 90px;
+    }
+
+    .g4-network-status__label {
+        display: none;
+    }
+
+    .g4-network-status {
+        padding: 0 var(--space-2, 8px);
+        width: 36px;
+        justify-content: center;
+    }
+
+    .g4-network-popover {
+        right: -8px;
+    }
+}

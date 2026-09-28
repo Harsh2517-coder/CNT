@@ -6,39 +6,74 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    min-height: 100vh;
     margin: 0;
+    padding: var(--space-6) var(--space-4);
+    box-sizing: border-box;
     background: var(--body-bg);
-    color: #fff;
+    color: var(--fg-1);
+}
+
+.g4-theme-toggle {
+    position: fixed;
+    top: var(--space-5);
+    right: var(--space-5);
+    z-index: var(--z-sticky);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    background: var(--surface-2);
+    color: var(--fg-1);
+    font-size: var(--font-lg);
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background var(--motion-base) var(--ease-standard),
+        transform var(--motion-fast) var(--ease-standard);
+}
+.g4-theme-toggle:hover {
+    background: var(--surface-3);
+    transform: scale(1.06);
 }
 
 .container {
     max-width: 800px;
+    width: 100%;
     margin: 0 auto;
     text-align: center;
-    padding: 20px;
-    background: var(--body-bg);
-    color: #fff;
-    border-radius: 14px;
-    border: var(--border);
+    padding: var(--space-7);
+    background: var(--surface-1);
+    color: var(--fg-1);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--border-subtle);
     box-shadow: var(--box-shadow);
+    box-sizing: border-box;
 }
 
 h1 {
-    margin-top: 10px;
-    color: #ffffff;
+    margin-top: 0;
+    margin-bottom: var(--space-6);
+    font-size: var(--font-2xl);
+    font-weight: var(--fw-semibold);
+    color: var(--fg-1);
 }
 
 video {
-    border-radius: 14px;
-    border: var(--border);
+    max-width: 100%;
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--border-subtle);
     box-shadow: var(--box-shadow);
+    background: var(--surface-2);
 }
 
 .input-group-inline {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: var(--space-3);
 }
 
 #apiSecret {
@@ -51,20 +86,21 @@ video {
 
 #copyButton {
     flex: 1;
-    padding: 15px;
+    padding: var(--space-4);
     max-width: 100px;
 }
 
 .input-group-inline > * {
-    margin-bottom: 20px;
+    margin-bottom: var(--space-5);
 }
 
 input,
 button {
-    padding: 15px;
-    font-size: 16px;
+    padding: var(--space-4);
+    font-size: var(--font-md);
+    font-family: inherit;
     border: none;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     outline: none;
     box-sizing: border-box;
 }
@@ -72,38 +108,39 @@ button {
 input[type='text'],
 input[type='password'] {
     flex: 1;
-    color: #fff;
-    border: var(--border);
-    background: var(--body-bg);
+    color: var(--fg-1);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-2);
 }
 
 input[type='text'][readonly] {
-    color: #fff;
-    border: var(--border);
-    background: var(--body-bg);
+    color: var(--fg-2);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-2);
 }
 
 button {
     cursor: pointer;
-    color: #fff;
-    border: var(--border);
+    color: var(--fg-1);
+    border: 1px solid var(--border-subtle);
     background: var(--btns-bg-color);
-    transition: background-color 0.3s ease;
+    transition: background-color var(--motion-base) var(--ease-standard);
 }
 
 button:disabled {
-    color: grey;
-    background: var(--body-bg);
+    color: var(--fg-disabled);
+    background: var(--surface-1);
     cursor: not-allowed;
 }
-button:hover {
-    background-color: var(--select-bg);
+button:hover:not(:disabled) {
+    background-color: var(--color-accent);
+    color: #fff;
 }
 .button-group {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-top: 20px;
+    gap: var(--space-3);
+    margin-top: var(--space-5);
 }
 
 .button-group button {
@@ -111,39 +148,40 @@ button:hover {
 }
 
 .popup {
-    z-index: 1000;
+    z-index: var(--z-toast);
     position: fixed;
     display: flex;
-    padding: 10px;
+    padding: var(--space-3);
     width: 100%;
     top: 0px;
     left: 50%;
     transform: translateX(-50%);
     align-items: center;
     justify-content: center;
-    color: white;
-    background-color: var(--body-bg);
+    gap: var(--space-3);
+    color: #fff;
+    background-color: var(--surface-3);
     box-shadow: var(--box-shadow);
 }
 
 .popup.success {
-    background-color: mediumseagreen;
-    color: white;
+    background-color: var(--color-success);
+    color: #fff;
 }
 
 .popup.error {
-    background-color: indianred;
-    color: white;
+    background-color: var(--color-danger);
+    color: #fff;
 }
 
 .popup.warning {
-    background-color: gold;
-    color: white;
+    background-color: var(--color-warning);
+    color: #1a1a1a;
 }
 
 .popup.info {
-    background-color: cornflowerblue;
-    color: white;
+    background-color: var(--color-accent);
+    color: #fff;
 }
 
 .popup.hidden {
@@ -153,32 +191,33 @@ button:hover {
 #closePopup {
     background: none;
     border: none;
-    color: white;
-    font-size: 18px;
+    color: inherit;
+    font-size: var(--font-lg);
     cursor: pointer;
+    padding: var(--space-1) var(--space-2);
 }
 
 #closePopup:hover {
-    color: var(--select-bg);
+    color: var(--fg-2);
 }
 
 footer {
     width: 100%;
-    margin-top: 10px;
-    color: grey;
+    margin-top: var(--space-4);
+    color: var(--fg-muted);
     justify-content: center;
     text-align: center;
-    background: var(--body-bg);
+    background: transparent;
 }
 
 /* Media Queries for Responsiveness */
 @media (max-width: 1024px) {
     .container {
-        padding: 15px;
+        padding: var(--space-5);
     }
     input,
     button {
-        font-size: 14px;
+        font-size: var(--font-sm);
     }
 }
 
@@ -189,8 +228,8 @@ footer {
     input,
     button {
         width: 100%;
-        font-size: 14px;
-        margin-bottom: 10px;
+        font-size: var(--font-sm);
+        margin-bottom: var(--space-3);
     }
     video {
         width: 100%;
@@ -203,15 +242,15 @@ footer {
 
 @media (max-width: 480px) {
     .container {
-        padding: 10px;
+        padding: var(--space-4);
     }
     h1 {
-        font-size: 24px;
+        font-size: var(--font-xl);
     }
     input,
     button {
-        font-size: 12px;
-        padding: 8px;
+        font-size: var(--font-xs);
+        padding: var(--space-3);
     }
 }
 

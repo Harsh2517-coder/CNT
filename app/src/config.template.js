@@ -757,7 +757,7 @@ module.exports = {
             apiKey: process.env.VIDEOAI_API_KEY || '',
             mode: process.env.VIDEOAI_MODE || 'FULL',
             contextId: process.env.VIDEOAI_CONTEXT_ID || '',
-            systemLimit: process.env.VIDEOAI_SYSTEM_LIMIT || 'You are a streaming avatar from MiroTalk SFU...',
+            systemLimit: process.env.VIDEOAI_SYSTEM_LIMIT || 'You are a streaming avatar from G4Meet...',
             sessionTimeLimit: process.env.VIDEOAI_SESSION_TIME_LIMIT
                 ? parseInt(process.env.VIDEOAI_SESSION_TIME_LIMIT, 10)
                 : 0, // Session time limit in seconds (0 = unlimited)
@@ -1140,13 +1140,11 @@ module.exports = {
 
             app: {
                 language: process.env.UI_LANGUAGE || 'en',
-                name: process.env.APP_NAME || 'MiroTalk SFU',
-                title:
-                    process.env.APP_TITLE ||
-                    '<h1>MiroTalk SFU</h1> Free browser based Real-time video calls.<br />Simple, Secure, Fast.',
+                name: process.env.APP_NAME || 'G4Meet',
+                title: process.env.APP_TITLE || 'G4Meet',
                 description:
                     process.env.APP_DESCRIPTION ||
-                    'Start your next video call with a single click. No download, plug-in, or login is required.',
+                    'Connect with your team, classmates, or department through high-quality real-time video conferencing.',
                 joinDescription: process.env.JOIN_DESCRIPTION || 'Pick a room name.<br />How about this one?',
                 joinButtonLabel: process.env.JOIN_BUTTON_LABEL || 'JOIN ROOM',
                 customizeButtonLabel: process.env.CUSTOMIZE_BUTTON_LABEL || 'CUSTOMIZE ROOM',
@@ -1159,7 +1157,7 @@ module.exports = {
              * Site-wide settings including icons and page-specific content.
              */
             site: {
-                title: process.env.SITE_TITLE || 'MiroTalk SFU, Free Video Calls, Messaging and Screen Sharing',
+                title: process.env.SITE_TITLE || 'G4Meet - Modern Video Conferencing',
                 icon: process.env.SITE_ICON_PATH || '../images/logo.svg',
                 appleTouchIcon: process.env.APPLE_TOUCH_ICON_PATH || '../images/logo.svg',
                 newRoomTitle: process.env.NEW_ROOM_TITLE || 'Pick name. <br />Share URL. <br />Start conference.',
@@ -1175,8 +1173,9 @@ module.exports = {
             meta: {
                 description:
                     process.env.META_DESCRIPTION ||
-                    'MiroTalk SFU powered by WebRTC and mediasoup for real-time video communications.',
-                keywords: process.env.META_KEYWORDS || 'webrtc, video calls, conference, screen sharing, mirotalk, sfu',
+                    'G4Meet is a fast, secure, browser-based platform for real-time video calls and screen sharing.',
+                keywords:
+                    process.env.META_KEYWORDS || 'webrtc, video calls, conference, screen sharing, g4meet, video conferencing',
             },
 
             /**
@@ -1186,12 +1185,12 @@ module.exports = {
              */
             og: {
                 type: process.env.OG_TYPE || 'app-webrtc',
-                siteName: process.env.OG_SITE_NAME || 'MiroTalk SFU',
+                siteName: process.env.OG_SITE_NAME || 'G4Meet',
                 title: process.env.OG_TITLE || 'Click the link to make a call.',
                 description:
-                    process.env.OG_DESCRIPTION || 'MiroTalk SFU provides real-time video calls and screen sharing.',
-                image: process.env.OG_IMAGE_URL || 'https://sfu.mirotalk.com/images/mirotalksfu.png',
-                url: process.env.OG_URL || 'https://sfu.mirotalk.com',
+                    process.env.OG_DESCRIPTION || 'G4Meet provides real-time video calls and screen sharing.',
+                image: process.env.OG_IMAGE_URL || 'https://g4meet.app/images/g4meet.png',
+                url: process.env.OG_URL || 'https://g4meet.app',
             },
 
             /**
@@ -1220,7 +1219,7 @@ module.exports = {
              * Customizable text and button labels.
              */
             whoAreYou: {
-                title: process.env.WHO_ARE_YOU_TITLE || 'MiroTalk SFU - Waiting for host to start the meeting',
+                title: process.env.WHO_ARE_YOU_TITLE || 'G4Meet - Waiting for host to start the meeting',
                 waitingRoomHeading: process.env.WHO_ARE_YOU_WAITING_ROOM_HEADING || 'Waiting for host...',
                 waitingRoomDescription:
                     process.env.WHO_ARE_YOU_WAITING_ROOM_DESCRIPTION ||
@@ -1255,7 +1254,7 @@ module.exports = {
              * Supports HTML content for flexible formatting.
              */
             about: {
-                imageUrl: process.env.ABOUT_IMAGE_URL || '../images/mirotalk-logo.gif',
+                imageUrl: process.env.ABOUT_IMAGE_URL || '../images/logo.svg',
                 title: `WebRTC SFU v${packageJson.version}`,
                 html: `
                     <button id="support-button" data-umami-event="Support button"
@@ -1271,14 +1270,14 @@ module.exports = {
                         ${process.env.AUTHOR_NAME || 'Miroslav Pejic'}
                     </a>
                     <br />
-                    ${process.env.EMAIL_LABEL || 'Email'}: 
+                    ${process.env.EMAIL_LABEL || 'Email'}:
                     <a id="email-button" data-umami-event="Email button"
-                        href="mailto:${process.env.CONTACT_EMAIL || 'miroslav.pejic.85@gmail.com'}?subject=${process.env.EMAIL_SUBJECT || 'MiroTalk SFU info'}">
+                        href="mailto:${process.env.CONTACT_EMAIL || 'miroslav.pejic.85@gmail.com'}?subject=${process.env.EMAIL_SUBJECT || 'G4Meet info'}">
                         ${process.env.CONTACT_EMAIL || 'miroslav.pejic.85@gmail.com'}
                     </a>
                     <hr />
                     <span>
-                        &copy; ${new Date().getFullYear()} ${process.env.COPYRIGHT_TEXT || 'MiroTalk SFU, all rights reserved'}
+                        &copy; ${new Date().getFullYear()} ${process.env.COPYRIGHT_TEXT || 'G4Meet, all rights reserved'}
                     </span>
                     <hr />
                     `,

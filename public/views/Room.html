@@ -3,7 +3,7 @@
     <head>
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk SFU - Room Video Calls, Messaging and Screen Sharing.</title>
+        <title id="title">G4Meet - Room Video Calls, Messaging and Screen Sharing.</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -18,7 +18,7 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="G4Meet powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
         />
 
         <!-- https://ogp.me -->
@@ -134,11 +134,94 @@
         <script defer src="../js/FixWebmDuration.js"></script>
         <script defer src="../js/WakeLock.js"></script>
         <script defer src="../js/RoomTemplate.js"></script>
+        <script src="/js/Theme.js" defer></script>
         <script defer src="../js/RoomClient.js"></script>
         <script defer src="../js/Room.js"></script>
     </head>
     <body>
         <noscript>You need to enable JavaScript to run this app.</noscript>
+
+        <header id="g4TopBar" class="g4-top-bar">
+            <div class="g4-top-bar__brand">
+                <img class="g4-top-bar__logo" src="../images/logo.svg" alt="G4Meet" />
+                <span class="g4-top-bar__name">G4Meet</span>
+            </div>
+
+            <button
+                type="button"
+                id="topBarMeetingIdButton"
+                class="g4-top-bar__meeting"
+                title="Click to copy the meeting ID"
+            >
+                <i class="fa-solid fa-hashtag" aria-hidden="true"></i>
+                <span id="topBarMeetingId" class="g4-top-bar__meeting-id">—</span>
+            </button>
+
+            <div class="g4-top-bar__spacer"></div>
+
+            <div class="g4-network-status-wrap">
+                <button
+                    type="button"
+                    id="networkStatusIndicator"
+                    class="g4-network-status is-connecting"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    title="Connection quality"
+                >
+                    <span id="networkStatusDot" class="g4-network-status__dot" aria-hidden="true"></span>
+                    <span id="networkStatusLabel" class="g4-network-status__label">Connecting</span>
+                </button>
+                <div
+                    id="networkStatusPopover"
+                    class="g4-network-popover hidden"
+                    role="dialog"
+                    aria-label="Connection Quality"
+                >
+                    <div class="g4-network-popover__title">Connection Quality</div>
+                    <div class="g4-network-popover__row">
+                        <span>Status</span>
+                        <span id="networkStatusPopoverState">connecting</span>
+                    </div>
+                    <div class="g4-network-popover__row g4-network-popover__row--muted">
+                        <span>Latency</span>
+                        <span>--</span>
+                    </div>
+                    <div class="g4-network-popover__row g4-network-popover__row--muted">
+                        <span>Packet Loss</span>
+                        <span>--</span>
+                    </div>
+                    <div class="g4-network-popover__row g4-network-popover__row--muted">
+                        <span>Jitter</span>
+                        <span>--</span>
+                    </div>
+                    <div class="g4-network-popover__row g4-network-popover__row--muted">
+                        <span>Bitrate</span>
+                        <span>--</span>
+                    </div>
+                    <div class="g4-network-popover__note">Detailed metrics coming soon</div>
+                </div>
+            </div>
+
+            <button
+                type="button"
+                id="topBarSettingsButton"
+                class="g4-top-bar__icon-btn"
+                title="Open room and device settings"
+                aria-label="Settings"
+            >
+                <i class="fas fa-cogs" aria-hidden="true"></i>
+            </button>
+
+            <button
+                type="button"
+                class="g4-theme-toggle"
+                data-theme-toggle
+                aria-label="Toggle light/dark theme"
+                title="Toggle theme"
+            >
+                🌓
+            </button>
+        </header>
 
         <div
             id="disconnectBanner"
@@ -254,8 +337,12 @@
 
         <div id="bottomButtons" class="fadein">
             <div id="startAudioSplit" class="split-btn">
-                <button id="startAudioButton" class="hidden"><i class="fas fa-microphone-slash"></i></button>
-                <button id="stopAudioButton" class="hidden"><i class="fas fa-microphone"></i></button>
+                <button id="startAudioButton" class="hidden" title="Turn your microphone on so others can hear you">
+                    <i class="fas fa-microphone-slash"></i>
+                </button>
+                <button id="stopAudioButton" class="hidden" title="Turn your microphone off for other participants">
+                    <i class="fas fa-microphone"></i>
+                </button>
                 <div id="startAudioDeviceDropdown" class="dropdown dropup hidden">
                     <button
                         id="startAudioDeviceMenuButton"
@@ -275,8 +362,12 @@
                 </div>
             </div>
             <div id="startVideoSplit" class="split-btn">
-                <button id="startVideoButton" class="hidden"><i class="fas fa-video-slash"></i></button>
-                <button id="stopVideoButton" class="hidden"><i class="fas fa-video"></i></button>
+                <button id="startVideoButton" class="hidden" title="Turn your camera on">
+                    <i class="fas fa-video-slash"></i>
+                </button>
+                <button id="stopVideoButton" class="hidden" title="Turn your camera off">
+                    <i class="fas fa-video"></i>
+                </button>
                 <div id="startVideoDeviceDropdown" class="dropdown dropup hidden">
                     <button
                         id="startVideoDeviceMenuButton"
@@ -295,21 +386,45 @@
                     ></div>
                 </div>
             </div>
-            <button id="swapCameraButton" class="hidden"><i class="fas fa-camera-rotate"></i></button>
-            <button id="startScreenButton" class="hidden"><i class="fas fa-desktop"></i></button>
-            <button id="stopScreenButton" class="orange hidden"><i class="fas fa-stop-circle"></i></button>
-            <button id="raiseHandButton" class="hidden"><i class="fas fa-hand-paper"></i></button>
-            <button id="lowerHandButton" class="hidden"><i id="lowerHandIcon" class="fas fa-hand-paper"></i></button>
-            <button id="chatButton" class="hidden" aria-label="Chat" aria-pressed="false">
+            <button id="swapCameraButton" class="hidden" title="Switch between front and back camera">
+                <i class="fas fa-camera-rotate"></i>
+            </button>
+            <button id="startScreenButton" class="hidden" title="Share your screen or application window">
+                <i class="fas fa-desktop"></i>
+            </button>
+            <button id="stopScreenButton" class="orange hidden" title="Stop sharing your screen">
+                <i class="fas fa-stop-circle"></i>
+            </button>
+            <button id="raiseHandButton" class="hidden" title="Let the host know you want to speak">
+                <i class="fas fa-hand-paper"></i>
+            </button>
+            <button id="lowerHandButton" class="hidden" title="Lower your hand">
+                <i id="lowerHandIcon" class="fas fa-hand-paper"></i>
+            </button>
+            <button
+                id="chatButton"
+                class="hidden"
+                aria-label="Chat"
+                aria-pressed="false"
+                title="Open the chat panel"
+            >
                 <i class="fas fa-comments" aria-hidden="true"></i>
                 <span id="chatUnreadBadge" class="unread-badge hidden" aria-live="polite" aria-atomic="true"></span>
             </button>
-            <button id="participantsButton" class="hidden" aria-label="Participants" aria-pressed="false">
+            <button
+                id="participantsButton"
+                class="hidden"
+                aria-label="Participants"
+                aria-pressed="false"
+                title="View and manage participants"
+            >
                 <i class="fas fa-users" aria-hidden="true"></i>
                 <span id="participantsCountBadge"></span>
             </button>
             <div id="settingsSplit" class="split-btn">
-                <button id="settingsButton" class="hidden"><i class="fas fa-cogs"></i></button>
+                <button id="settingsButton" class="hidden" title="Open room and device settings">
+                    <i class="fas fa-cogs"></i>
+                </button>
                 <div id="settingsExtraDropdown" class="dropdown dropup hidden">
                     <button
                         id="settingsExtraToggle"
@@ -337,8 +452,18 @@
                         >
                             SHARING
                         </div>
-                        <button id="shareButton" class="hidden"><i class="fas fa-share-alt"></i> Share Room</button>
-                        <button id="fileShareExtraButton" class="hidden">
+                        <button
+                            id="shareButton"
+                            class="hidden"
+                            title="Copy or share this room's invite link"
+                        >
+                            <i class="fas fa-share-alt"></i> Share Room
+                        </button>
+                        <button
+                            id="fileShareExtraButton"
+                            class="hidden"
+                            title="Share a file with everyone in the room"
+                        >
                             <i class="fas fa-folder-open"></i> File sharing
                         </button>
 
@@ -351,13 +476,13 @@
                         >
                             RECORDING & CAPTURE
                         </div>
-                        <button id="startRecButton" class="hidden">
+                        <button id="startRecButton" class="hidden" title="Start recording this meeting">
                             <i class="fas fa-record-vinyl"></i> Start Recording
                         </button>
-                        <button id="stopRecButton" class="hidden">
+                        <button id="stopRecButton" class="hidden" title="Stop the current recording">
                             <i class="fas fa-record-vinyl cr"></i> Stop Recording
                         </button>
-                        <button id="snapshotRoomButton" class="hidden">
+                        <button id="snapshotRoomButton" class="hidden" title="Take a snapshot of the current view">
                             <i class="fas fas fa-camera-retro"></i> Snapshot
                         </button>
 
@@ -370,26 +495,28 @@
                         >
                             TOOLS
                         </div>
-                        <button id="speechRecButton" class="hidden">
+                        <button id="speechRecButton" class="hidden" title="Turn voice commands on or off">
                             <i id="speechRecIcon" class="fas fa-microphone-slash"></i> Voice Commands
                         </button>
-                        <button id="transcriptionButton" class="hidden">
+                        <button id="transcriptionButton" class="hidden" title="Show live captions and transcription">
                             <i class="fas fa-closed-captioning"></i> Transcription
                         </button>
-                        <button id="pollButton" class="hidden">
+                        <button id="pollButton" class="hidden" title="Create or take part in a poll">
                             <i class="fas fa-square-poll-horizontal"></i> Poll
                         </button>
-                        <button id="breakoutRoomButton" class="hidden">
+                        <button id="breakoutRoomButton" class="hidden" title="Create and manage breakout rooms">
                             <i class="fas fa-object-ungroup"></i> Breakout Rooms
                         </button>
-                        <button id="editorButton" class="hidden"><i class="fas fa-pen-to-square"></i> Editor</button>
-                        <button id="whiteboardButton" class="hidden">
+                        <button id="editorButton" class="hidden" title="Open the shared code and text editor">
+                            <i class="fas fa-pen-to-square"></i> Editor
+                        </button>
+                        <button id="whiteboardButton" class="hidden" title="Open the shared whiteboard">
                             <i class="fas fa-chalkboard-teacher"></i> Whiteboard
                         </button>
-                        <button id="documentPiPButton" class="hidden">
+                        <button id="documentPiPButton" class="hidden" title="Open document picture-in-picture">
                             <i class="fas fa-images"></i> Document PiP
                         </button>
-                        <button id="emojiRoomButton" class="hidden">
+                        <button id="emojiRoomButton" class="hidden" title="Send an emoji reaction to the room">
                             <i class="fas fa-face-smile"></i> Room Emoji
                         </button>
 
@@ -402,24 +529,30 @@
                         >
                             VIEW & SETTINGS
                         </div>
-                        <button id="hideMeButton" class="hidden">
+                        <button id="hideMeButton" class="hidden" title="Hide your own video tile from view">
                             <i id="hideMeIcon" class="fas fa-user"></i> Hide Me
                         </button>
-                        <button id="fullScreenButton" class="hidden">
+                        <button id="fullScreenButton" class="hidden" title="Toggle full screen">
                             <i id="fullScreenIcon" class="fas fa-expand-alt"></i> Full Screen
                         </button>
-                        <button id="restartICEButton" class="hidden">
+                        <button id="restartICEButton" class="hidden" title="Restart the connection if audio/video is stuck">
                             <i class="fas fa-satellite-dish"></i> Restart ICE
                         </button>
-                        <button id="aboutButton" class="hidden"><i class="fas fa-question"></i> About</button>
+                        <button id="aboutButton" class="hidden" title="About this app">
+                            <i class="fas fa-question"></i> About
+                        </button>
                     </div>
                 </div>
             </div>
             <div id="exitDropdown">
-                <button id="exitButton" class="hidden"><i class="fa-solid fa-phone-slash red"></i></button>
+                <button id="exitButton" class="hidden g4-btn-danger" title="Leave or end the meeting">
+                    <i class="fa-solid fa-phone-slash red"></i>
+                </button>
                 <div id="exitMenu" class="hidden" aria-labelledby="exitButton">
-                    <button id="exitLeaveBtn"><i class="fas fa-sign-out-alt"></i> Leave room</button>
-                    <button id="exitLeaveAllBtn" class="hidden">
+                    <button id="exitLeaveBtn" title="Leave the meeting; it continues for everyone else">
+                        <i class="fas fa-sign-out-alt"></i> Leave room
+                    </button>
+                    <button id="exitLeaveAllBtn" class="hidden" title="End the meeting for every participant">
                         <i class="fas fa-power-off red"></i> <span class="red">End room for all</span>
                     </button>
                 </div>
@@ -1660,7 +1793,7 @@
                         <img
                             id="imgShareSend"
                             src="../images/share.png"
-                            alt="mirotalksfu-share-send"
+                            alt="g4meet-share-send"
                             class="file-transfer-image"
                         />
                     </div>
@@ -1698,7 +1831,7 @@
                         <img
                             id="imgShareReceive"
                             src="../images/share.png"
-                            alt="mirotalksfu-share-receive"
+                            alt="g4meet-share-receive"
                             class="file-transfer-image"
                         />
                     </div>

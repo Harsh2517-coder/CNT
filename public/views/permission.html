@@ -3,7 +3,7 @@
     <head>
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk SFU - Allow Video or Audio access to join in the Room.</title>
+        <title id="title">G4Meet - Camera and microphone access needed.</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -16,18 +16,48 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="G4Meet powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
         />
 
         <!-- StyleSheet -->
 
         <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,600" />
+        <link rel="stylesheet" href="../css/Root.css" />
         <link rel="stylesheet" type="text/css" href="../css/landing.css" />
+
+        <style>
+            .g4-theme-toggle {
+                position: fixed;
+                top: var(--space-5);
+                right: var(--space-5);
+                z-index: var(--z-sticky);
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-pill);
+                background: var(--surface-2);
+                color: var(--fg-1);
+                font-size: var(--font-lg);
+                line-height: 1;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    background var(--motion-base) var(--ease-standard),
+                    transform var(--motion-fast) var(--ease-standard);
+            }
+            .g4-theme-toggle:hover {
+                background: var(--surface-3);
+                transform: scale(1.06);
+            }
+        </style>
 
         <!-- Js scripts -->
 
         <script defer src="../js/Brand.js"></script>
         <script async src="../js/Stats.js"></script>
+        <script src="../js/Theme.js" defer></script>
 
         <script src="https://unpkg.com/animejs@3.0.1/lib/anime.min.js"></script>
         <script src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
@@ -36,6 +66,15 @@
         <script src="https://cdn.jsdelivr.net/npm/xss/dist/xss.min.js"></script>
     </head>
     <body class="is-boxed has-animations">
+        <button
+            type="button"
+            class="g4-theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle light/dark theme"
+            title="Toggle theme"
+        >
+            🌓
+        </button>
         <div class="body-wrap">
             <header class="site-header">
                 <div class="container">
@@ -43,15 +82,11 @@
                         <div class="brand header-brand">
                             <h1 class="m-0">
                                 <a href="/">
-                                    <img
-                                        class="header-logo-image"
-                                        src="../images/logo.svg"
-                                        alt="mirotalksfu-webrtc-logo"
-                                    />
+                                    <img class="header-logo-image" src="../images/logo.svg" alt="g4meet-logo" />
                                     <!-- <img
                                         class="header-logo-image reveal-from-left"
                                         src="../images/mirotalk-mc.png"
-                                        alt="mirotalksfu-webrtc-logo"
+                                        alt="g4meet-logo"
                                         width="96"
                                         height="auto"
                                     /> -->
@@ -67,11 +102,12 @@
                     <div class="container">
                         <div class="hero-inner">
                             <div class="hero-copy">
-                                <h1 class="hero-title mt-0">Access denied.</h1>
+                                <h1 class="hero-title mt-0">Camera or microphone access needed</h1>
                                 <p class="hero-paragraph" id="message"></p>
                                 <p class="hero-paragraph">
-                                    This app will not work without camera or microphone access. Please try again and
-                                    allow it.
+                                    G4Meet needs permission to use your camera and microphone to join the call. Open
+                                    your browser's site settings, allow camera and microphone access for this site,
+                                    then try again.
                                 </p>
                                 <div class="hero-cta">
                                     <a
@@ -121,7 +157,7 @@
                                 <a href="/privacy">Privacy Policy</a>
                             </li>
                             <li>
-                                <a href="https://sfu.mirotalk.com/api/v1/docs/">Rest API</a>
+                                <a href="/api/v1/docs/">Rest API</a>
                             </li>
                             <li>
                                 Contact:
@@ -208,7 +244,7 @@
                                 >
                             </li>
                         </ul>
-                        <div class="footer-copyright">&copy; 2026 MiroTalk SFU, all rights reserved</div>
+                        <div class="footer-copyright">&copy; 2026 G4Meet, all rights reserved</div>
                     </div>
                 </div>
             </footer>

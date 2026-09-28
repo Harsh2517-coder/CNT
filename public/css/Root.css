@@ -1,27 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@500&display=swap');
-
 :root {
-    --body-bg: linear-gradient(135deg, #0e0e14, #1e1e28);
+    --body-bg: linear-gradient(135deg, #0b1120, #1e293b);
     --border: 0.5px solid rgb(255 255 255 / 18%);
     --border-radius: 1.125rem;
     --msger-width: 800px;
     --msger-height: 700px;
     --msger-bubble-width: 85%;
-    --msger-bg: linear-gradient(135deg, #0e0e14, #1e1e28);
+    --msger-bg: linear-gradient(135deg, #0b1120, #1e293b);
     --wb-width: 1920px;
     --wb-height: 1080px;
-    --wb-bg: linear-gradient(135deg, #0e0e14, #1e1e28);
-    --select-bg: #161622;
+    --wb-bg: linear-gradient(135deg, #0b1120, #1e293b);
+    --select-bg: #111827;
     --select-border-radius: 12px;
-    --select-focus-color: rgba(102, 190, 255, 0.5);
-    --left-msg-bg: #141420;
-    --right-msg-bg: #1a1a26;
+    --select-focus-color: rgba(37, 99, 235, 0.55);
+    --left-msg-bg: #111827;
+    --right-msg-bg: #1e293b;
     --private-msg-bg: #6b1226;
     --box-shadow: 0px 8px 16px 0px rgb(0 0 0);
     --btns-hover-scale: scale(1.1);
-    --settings-bg: linear-gradient(135deg, #0e0e14, #1e1e28);
-    --tab-btn-active: #1e1e28;
-    --btns-bg-color: rgba(10, 10, 16, 0.8);
+    --settings-bg: linear-gradient(135deg, #0b1120, #1e293b);
+    --tab-btn-active: #1e293b;
+    --btns-bg-color: rgba(15, 23, 42, 0.8);
 
     /* bottom buttons bar horizontal default */
     --bottom-btns-top: auto;
@@ -34,7 +32,7 @@
 
     --transcription-height: 680px;
     --transcription-width: 420px;
-    --trx-bg: linear-gradient(135deg, #0e0e14, #1e1e28);
+    --trx-bg: linear-gradient(135deg, #0b1120, #1e293b);
 
     --editor-container-width: 100%;
     --editor-container-height: 100%;
@@ -51,14 +49,15 @@
     /* Design tokens (additive, non-breaking) */
 
     /* Semantic colors */
-    --color-accent: #4678f9;
-    --color-accent-strong: #3b5de7;
-    --color-accent-soft: rgba(70, 120, 249, 0.12);
-    --color-success: #2ece89;
-    --color-warning: #fbbf24;
-    --color-danger: #ff4b4b;
-    --color-danger-strong: #dc3545;
-    --color-focus: rgba(102, 190, 255, 0.65);
+    --color-accent: #2563eb;
+    --color-accent-strong: #1d4ed8;
+    --color-accent-soft: rgba(37, 99, 235, 0.14);
+    --color-accent-secondary: #0d9488;
+    --color-success: #22c55e;
+    --color-warning: #f59e0b;
+    --color-danger: #ef4444;
+    --color-danger-strong: #dc2626;
+    --color-focus: rgba(37, 99, 235, 0.55);
 
     /* Foreground */
     --fg-1: rgba(255, 255, 255, 0.95);
@@ -93,6 +92,7 @@
     --radius-pill: 999px;
 
     /* Typography */
+    --font-family-base: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
     --font-xs: 11px;
     --font-sm: 13px;
     --font-base: 15px;
@@ -132,9 +132,71 @@
     --bp-lg: 1280px;
 }
 
+/* Light theme overrides. An explicit choice (data-theme attribute, set by
+   Theme.js) always wins; prefers-color-scheme is only the fallback when no
+   explicit choice has been stored. Dark (the :root block above) stays the
+   default look. */
+:root[data-theme='light'] {
+    --body-bg: linear-gradient(135deg, #f8fafc, #f1f5f9);
+    --border: 0.5px solid rgba(15, 23, 42, 0.12);
+    --msger-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+    --wb-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+    --select-bg: #ffffff;
+    --left-msg-bg: #f1f5f9;
+    --right-msg-bg: #eff6ff;
+    --box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.08);
+    --settings-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+    --tab-btn-active: #e2e8f0;
+    --btns-bg-color: rgba(255, 255, 255, 0.9);
+    --dd-color: #0f172a;
+    --trx-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+
+    --fg-1: rgba(15, 23, 42, 0.92);
+    --fg-2: rgba(15, 23, 42, 0.78);
+    --fg-3: rgba(15, 23, 42, 0.62);
+    --fg-muted: rgba(15, 23, 42, 0.48);
+    --fg-disabled: rgba(15, 23, 42, 0.32);
+
+    --surface-1: rgba(15, 23, 42, 0.03);
+    --surface-2: rgba(15, 23, 42, 0.06);
+    --surface-3: rgba(15, 23, 42, 0.1);
+    --border-subtle: rgba(15, 23, 42, 0.08);
+    --border-strong: rgba(15, 23, 42, 0.16);
+}
+
+@media (prefers-color-scheme: light) {
+    :root:not([data-theme='dark']):not([data-theme='light']) {
+        --body-bg: linear-gradient(135deg, #f8fafc, #f1f5f9);
+        --border: 0.5px solid rgba(15, 23, 42, 0.12);
+        --msger-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+        --wb-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+        --select-bg: #ffffff;
+        --left-msg-bg: #f1f5f9;
+        --right-msg-bg: #eff6ff;
+        --box-shadow: 0 1px 3px rgba(15, 23, 42, 0.08), 0 4px 12px rgba(15, 23, 42, 0.08);
+        --settings-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+        --tab-btn-active: #e2e8f0;
+        --btns-bg-color: rgba(255, 255, 255, 0.9);
+        --dd-color: #0f172a;
+        --trx-bg: linear-gradient(135deg, #ffffff, #f8fafc);
+
+        --fg-1: rgba(15, 23, 42, 0.92);
+        --fg-2: rgba(15, 23, 42, 0.78);
+        --fg-3: rgba(15, 23, 42, 0.62);
+        --fg-muted: rgba(15, 23, 42, 0.48);
+        --fg-disabled: rgba(15, 23, 42, 0.32);
+
+        --surface-1: rgba(15, 23, 42, 0.03);
+        --surface-2: rgba(15, 23, 42, 0.06);
+        --surface-3: rgba(15, 23, 42, 0.1);
+        --border-subtle: rgba(15, 23, 42, 0.08);
+        --border-strong: rgba(15, 23, 42, 0.16);
+    }
+}
+
 * {
     outline: none;
-    font-family: 'Montserrat';
+    font-family: var(--font-family-base);
 }
 
 *:focus-visible {

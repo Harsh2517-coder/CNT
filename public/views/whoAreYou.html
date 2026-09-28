@@ -3,7 +3,7 @@
     <head>
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk SFU - Who are you.</title>
+        <title id="title">G4Meet - Who are you.</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -16,7 +16,7 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="G4Meet powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
         />
 
         <!-- https://ogp.me -->
@@ -36,6 +36,7 @@
         <link rel="stylesheet" type="text/css" href="../css/landing.css" />
         <link rel="stylesheet" type="text/css" href="../css/waitingRoom.css" />
         <link rel="stylesheet" type="text/css" href="../css/Translate.css" />
+        <link rel="stylesheet" type="text/css" href="../css/Root.css" />
 
         <!-- Js scripts -->
 
@@ -57,6 +58,10 @@
     <body class="is-boxed has-animations">
         <div id="google_translate_element"></div>
 
+        <button type="button" class="g4-theme-toggle" data-theme-toggle aria-label="Toggle light/dark theme" title="Toggle theme">
+            🌓
+        </button>
+
         <div class="body-wrap">
             <header class="site-header reveal-from-top">
                 <div class="container">
@@ -67,7 +72,7 @@
                                     <img
                                         id="headerLogo"
                                         src="../images/logo.svg"
-                                        alt="MiroTalk SFU"
+                                        alt="G4Meet"
                                         width="32"
                                         height="32"
                                     />
@@ -163,7 +168,7 @@
                                 <a href="/privacy">Privacy Policy</a>
                             </li>
                             <li>
-                                <a href="https://sfu.mirotalk.com/api/v1/docs/">Rest API</a>
+                                <a href="/api/v1/docs/">Rest API</a>
                             </li>
                             <li>
                                 Contact:
@@ -250,13 +255,14 @@
                                 >
                             </li>
                         </ul>
-                        <div class="footer-copyright">&copy; 2026 MiroTalk SFU, all rights reserved</div>
+                        <div class="footer-copyright">&copy; 2026 G4Meet, all rights reserved</div>
                     </div>
                 </div>
             </footer>
         </div>
         <script async src="../js/WhoAreYou.js"></script>
         <script defer src="../js/Landing.js"></script>
+        <script src="/js/Theme.js" defer></script>
         <script async defer src="https://buttons.github.io/buttons.js"></script>
     </body>
 </html>

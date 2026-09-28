@@ -42,7 +42,7 @@
     background: linear-gradient(135deg, #1f1f2e 0%, #2a2a3e 100%);
     color: #fff;
     padding: 24px;
-    border-radius: 20px;
+    border-radius: var(--radius-xl);
     width: 360px;
     max-height: 90vh;
     height: auto;
@@ -123,25 +123,25 @@
 
 .mirotalk-minimized-btn .status-dot.online,
 .mirotalk-support-widget .status-dot.online {
-    background: #00e676;
-    box-shadow: 0 0 8px rgba(0, 230, 118, 0.4);
+    background: var(--color-success);
+    box-shadow: 0 0 8px rgba(46, 206, 137, 0.4);
     animation: widgetPulse 2s infinite;
 }
 
 .mirotalk-minimized-btn .status-dot.offline,
 .mirotalk-support-widget .status-dot.offline {
-    background: #ff5252;
-    box-shadow: 0 0 8px rgba(255, 82, 82, 0.4);
+    background: var(--color-danger);
+    box-shadow: 0 0 8px rgba(255, 75, 75, 0.4);
 }
 
 .mirotalk-support-widget .online-text {
-    color: #00e676;
+    color: var(--color-success);
     font-weight: 600;
     font-size: 14px;
 }
 
 .mirotalk-support-widget .offline-text {
-    color: #ff5252;
+    color: var(--color-danger);
     font-weight: 600;
     font-size: 14px;
 }
@@ -160,7 +160,7 @@
     color: #aaa;
     cursor: pointer;
     padding: 4px 6px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     transition: all 0.2s ease;
     display: flex;
     align-items: center;
@@ -188,7 +188,7 @@
     font-size: 18px;
     line-height: 1;
     padding: 4px;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     transition: all 0.2s ease;
     color: #aaa;
 }
@@ -281,7 +281,7 @@
     background: linear-gradient(135deg, #333 0%, #444 100%);
     color: white;
     border: none;
-    border-radius: 16px;
+    border-radius: var(--radius-lg);
     padding: 14px 16px;
     margin-bottom: 12px;
     cursor: pointer;
@@ -316,14 +316,14 @@
 }
 
 .mirotalk-support-widget .btn-icon {
-    background: linear-gradient(135deg, #00e676 0%, #00c853 100%);
+    background: linear-gradient(135deg, var(--color-accent) 0%, var(--color-accent-strong) 100%);
     border-radius: 50%;
     width: 32px;
     height: 32px;
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 12px rgba(0, 230, 118, 0.3);
+    box-shadow: 0 4px 12px rgba(70, 120, 249, 0.3);
     transition: all 0.3s ease;
     flex-shrink: 0;
 }
@@ -336,7 +336,7 @@
 
 .mirotalk-support-widget .btn:hover .btn-icon {
     transform: scale(1.1);
-    box-shadow: 0 6px 16px rgba(0, 230, 118, 0.4);
+    box-shadow: 0 6px 16px rgba(70, 120, 249, 0.4);
 }
 
 /* Footer */
@@ -353,22 +353,22 @@
 }
 
 .mirotalk-support-widget .footer-link {
-    color: #00e676;
+    color: var(--color-accent);
     text-decoration: none;
     transition: color 0.2s ease;
 }
 
 .mirotalk-support-widget .footer-link:hover {
-    color: #00c853;
+    color: var(--color-accent-strong);
 }
 
 .mirotalk-support-widget .mirotalk-powered-by {
-    color: #00e676;
+    color: var(--color-accent);
     font-weight: bold;
 }
 
 .mirotalk-support-widget.light-theme .mirotalk-powered-by {
-    color: #00c853;
+    color: var(--color-accent-strong);
 }
 
 /* Widget States */
@@ -382,7 +382,7 @@
     background: linear-gradient(135deg, #1f1f2e 0%, #2a2a3e 100%);
     color: #fff;
     padding: 12px 16px;
-    border-radius: 25px;
+    border-radius: var(--radius-pill);
     cursor: pointer;
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
     transition: all 0.3s ease;
@@ -448,15 +448,15 @@
     transform: translateY(-4px) scale(1.07);
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6);
     background: linear-gradient(135deg, #2a2a3e 0%, #23233a 100%);
-    color: #00e676;
-    border-color: #00e676;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
 .mirotalk-reopener-btn.light-theme:hover {
     box-shadow: 0 12px 40px rgba(0, 0, 0, 0.18);
     background: linear-gradient(135deg, #e9ecef 0%, #f8f9fa 100%);
-    color: #00c853;
-    border-color: #00c853;
+    color: var(--color-accent-strong);
+    border-color: var(--color-accent-strong);
 }
 
 .mirotalk-reopener-btn .reopener-content {
@@ -914,7 +914,7 @@
 .mirotalk-support-widget .close-btn:focus,
 .mirotalk-minimized-btn:focus,
 .mirotalk-reopener-btn:focus {
-    outline: 2px solid #00e676;
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 

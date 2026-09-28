@@ -18,16 +18,43 @@
     }
 }
 
+/* Theme toggle */
+.g4-theme-toggle {
+    position: fixed;
+    top: var(--space-5);
+    right: var(--space-5);
+    z-index: var(--z-sticky);
+    width: 40px;
+    height: 40px;
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-pill);
+    background: var(--surface-2);
+    color: var(--fg-1);
+    font-size: var(--font-lg);
+    line-height: 1;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition:
+        background var(--motion-base) var(--ease-standard),
+        transform var(--motion-fast) var(--ease-standard);
+}
+.g4-theme-toggle:hover {
+    background: var(--surface-3);
+    transform: scale(1.06);
+}
+
 /* Waiting Room Card */
 .waiting-card {
     max-width: 552px;
     width: 100%;
     margin: 0 auto;
-    padding: 56px 48px 48px;
-    background: linear-gradient(160deg, rgba(15, 15, 25, 0.95) 40%, rgba(70, 120, 249, 0.12) 100%);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 20px;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    padding: var(--space-9) var(--space-8) var(--space-8);
+    background: linear-gradient(160deg, var(--surface-2) 40%, var(--color-accent-soft) 100%);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-xl);
+    box-shadow: var(--box-shadow);
     text-align: center;
 }
 
@@ -35,10 +62,10 @@
 .waiting-icon {
     width: 72px;
     height: 72px;
-    margin: 0 auto 24px;
+    margin: 0 auto var(--space-6);
     border-radius: 50%;
-    background: rgba(70, 120, 249, 0.1);
-    border: 1px solid rgba(70, 120, 249, 0.2);
+    background: var(--color-accent-soft);
+    border: 1px solid var(--border-subtle);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -46,13 +73,13 @@
 }
 .waiting-icon i {
     font-size: 30px;
-    color: #4678f9;
+    color: var(--color-accent);
 }
 
 @keyframes iconPulse {
     0%,
     100% {
-        box-shadow: 0 0 0 0 rgba(70, 120, 249, 0.25);
+        box-shadow: 0 0 0 0 var(--color-accent-soft);
     }
     50% {
         box-shadow: 0 0 0 16px rgba(70, 120, 249, 0);
@@ -61,19 +88,19 @@
 
 /* Title */
 .waiting-title {
-    font-size: 26px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 10px;
+    font-size: var(--font-2xl);
+    font-weight: var(--fw-bold);
+    color: var(--fg-1);
+    margin-bottom: var(--space-3);
     letter-spacing: -0.4px;
 }
 
 /* Description */
 .waiting-description {
-    font-size: 15px;
-    color: rgba(255, 255, 255, 0.65);
-    line-height: 1.7;
-    margin-bottom: 32px;
+    font-size: var(--font-base);
+    color: var(--fg-3);
+    line-height: var(--lh-loose);
+    margin-bottom: var(--space-7);
     max-width: 400px;
     margin-left: auto;
     margin-right: auto;
@@ -82,46 +109,46 @@
 /* Room name badge */
 .waiting-room-name {
     display: inline-block;
-    background: rgba(70, 120, 249, 0.12);
-    border: 1px solid rgba(70, 120, 249, 0.2);
-    border-radius: 12px;
-    padding: 6px 16px;
-    font-size: 13px;
-    font-weight: 600;
-    color: #7ba4fc;
+    background: var(--color-accent-soft);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-md);
+    padding: var(--space-2) var(--space-4);
+    font-size: var(--font-sm);
+    font-weight: var(--fw-semibold);
+    color: var(--color-accent);
     letter-spacing: 0.3px;
-    margin-bottom: 24px;
+    margin-bottom: var(--space-6);
     word-break: break-all;
     max-width: 100%;
 }
 .waiting-room-name i {
-    margin-right: 6px;
-    font-size: 12px;
+    margin-right: var(--space-2);
+    font-size: var(--font-xs);
 }
 
 /* Elapsed time */
 .waiting-elapsed {
-    font-size: 13px;
-    color: rgba(255, 255, 255, 0.4);
-    margin-bottom: 20px;
+    font-size: var(--font-sm);
+    color: var(--fg-muted);
+    margin-bottom: var(--space-5);
 }
 .waiting-elapsed i {
     margin-right: 5px;
-    font-size: 12px;
+    font-size: var(--font-xs);
 }
 
 /* Spinner */
 .waiting-spinner {
     display: flex;
     justify-content: center;
-    gap: 10px;
-    margin-bottom: 18px;
+    gap: var(--space-3);
+    margin-bottom: var(--space-5);
 }
 .waiting-spinner-dot {
     width: 12px;
     height: 12px;
     border-radius: 50%;
-    background: #4678f9;
+    background: var(--color-accent);
     animation: dotBounce 1.4s ease-in-out infinite;
 }
 .waiting-spinner-dot:nth-child(2) {
@@ -146,41 +173,41 @@
 
 /* Status */
 .waiting-status {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.55);
-    margin-bottom: 24px;
+    font-size: var(--font-md);
+    color: var(--fg-2);
+    margin-bottom: var(--space-6);
     transition:
-        color 0.3s ease,
-        font-weight 0.3s ease;
+        color var(--motion-base) ease,
+        font-weight var(--motion-base) ease;
 }
 .waiting-status.ready {
-    color: #2ece89;
-    font-weight: 600;
-    font-size: 15px;
+    color: var(--color-success);
+    font-weight: var(--fw-semibold);
+    font-size: var(--font-base);
 }
 
 /* Pulse on check */
 .waiting-spinner-dot.checking {
-    background: #6d9bff;
+    background: var(--color-focus);
 }
 
 /* Divider */
 .waiting-divider {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
-    margin: 0 0 20px;
+    border-top: 1px solid var(--border-subtle);
+    margin: 0 0 var(--space-5);
 }
 
 /* Audio player */
 .waiting-audio-player {
     display: flex;
     align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    border-radius: 16px;
-    padding: 10px 14px;
-    margin-bottom: 20px;
+    gap: var(--space-3);
+    background: var(--surface-1);
+    border: 1px solid var(--border-subtle);
+    border-radius: var(--radius-lg);
+    padding: var(--space-3) var(--space-4);
+    margin-bottom: var(--space-5);
 }
 .waiting-audio-btn {
     width: 34px;
@@ -188,53 +215,53 @@
     min-width: 34px;
     border: none;
     border-radius: 50%;
-    background: rgba(70, 120, 249, 0.12);
-    color: #4678f9;
-    font-size: 13px;
+    background: var(--color-accent-soft);
+    color: var(--color-accent);
+    font-size: var(--font-sm);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s ease;
+    transition: all var(--motion-base) ease;
 }
 .waiting-audio-btn:hover {
-    background: rgba(70, 120, 249, 0.22);
-    color: #6d9bff;
+    background: var(--surface-3);
+    color: var(--color-accent-strong);
 }
 .waiting-audio-btn:focus-visible {
-    outline: 2px solid #4678f9;
+    outline: 2px solid var(--color-accent);
     outline-offset: 2px;
 }
 .waiting-audio-bar {
     flex: 1;
     height: 4px;
-    background: rgba(255, 255, 255, 0.1);
+    background: var(--surface-2);
     border-radius: 2px;
     overflow: hidden;
 }
 .waiting-audio-progress {
     height: 100%;
     width: 0%;
-    background: linear-gradient(90deg, #4678f9, #6d9bff);
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-strong));
     border-radius: 2px;
     transition: width 0.3s linear;
 }
 
 /* Host login link */
 .host-login-link {
-    font-size: 14px;
-    color: rgba(255, 255, 255, 0.45);
+    font-size: var(--font-md);
+    color: var(--fg-muted);
     margin: 0;
 }
 .host-login-link a {
-    color: #4678f9;
+    color: var(--color-accent);
     text-decoration: none;
-    font-weight: 600;
-    margin-left: 6px;
-    transition: color 0.2s;
+    font-weight: var(--fw-semibold);
+    margin-left: var(--space-2);
+    transition: color var(--motion-base);
 }
 .host-login-link a:hover {
-    color: #6d9bff;
+    color: var(--color-accent-strong);
     text-decoration: underline;
 }
 
@@ -250,12 +277,16 @@
     }
 }
 @media (max-width: 640px) {
+    .g4-theme-toggle {
+        top: var(--space-4);
+        right: var(--space-4);
+    }
     .waiting-card {
-        margin: 0 16px;
-        padding: 44px 28px 36px;
+        margin: 0 var(--space-4);
+        padding: var(--space-8) var(--space-6) var(--space-7);
     }
     .waiting-title {
-        font-size: 22px;
+        font-size: var(--font-xl);
     }
     .waiting-icon {
         width: 60px;

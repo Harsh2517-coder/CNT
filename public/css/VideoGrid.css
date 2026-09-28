@@ -59,17 +59,31 @@
     align-self: center;
     overflow: hidden;
     display: inline-block;
-    border-radius: 14px;
+    border-radius: var(--radius-lg, 14px);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
     background: var(--body-bg);
     box-shadow: var(--box-shadow);
     animation: show 0.4s ease;
     container-type: inline-size;
     container-name: camera;
+    transition:
+        border-color var(--motion-base, 200ms) var(--ease-standard, ease),
+        box-shadow var(--motion-base, 200ms) var(--ease-standard, ease);
 }
 
 /* .Camera:hover {
     border: 3px solid rgb(113, 157, 239);
 } */
+
+/* Active speaker highlight: driven by the real focus-mode attribute RoomClient.js already
+   sets on the dominant speaker's tile - no new state is invented here. */
+.Camera[focus-mode],
+#videoMediaContainer > [focus-mode] {
+    border-color: var(--color-accent, #2563eb);
+    box-shadow:
+        0 0 0 2px var(--color-accent-soft, rgba(37, 99, 235, 0.14)),
+        var(--box-shadow);
+}
 
 .Camera .fa-hand-paper {
     margin: 10px !important;
@@ -98,6 +112,7 @@
     width: var(--vmi-wh);
     height: var(--vmi-wh);
     border-radius: 50%;
+    border: 2px solid var(--border-subtle, rgba(255, 255, 255, 0.1));
     transition: box-shadow 0.3s ease;
 }
 
@@ -117,7 +132,7 @@
     position: absolute;
     right: 0;
     bottom: 0;
-    color: #fff;
+    color: var(--fg-1, #fff);
     font-size: 10px;
     display: flex;
     align-items: center;
@@ -125,8 +140,10 @@
     margin: 10px;
     width: auto;
     height: 25px;
-    border-radius: 10px;
-    background: var(--body-bg);
+    border-radius: var(--radius-pill, 10px);
+    background: var(--surface-3, var(--body-bg));
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
 }
 
 .rec-indicator {
@@ -209,6 +226,13 @@
     right: 0;
     width: 100vw;
     border-radius: 0 0 10px 10px;
+}
+
+/* Keep it below the fixed G4Meet top bar so the two never overlap */
+@media (max-width: 640px) {
+    .videoMenuBar.mobile-floating {
+        top: calc(46px + env(safe-area-inset-top, 0px));
+    }
 }
 
 .videoAvatarMenuBar,

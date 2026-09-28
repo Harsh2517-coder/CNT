@@ -5,6 +5,7 @@
         <meta charset="utf-8" />
         <meta name="robots" content="noindex" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="../css/Root.css" />
         <style>
             body {
                 text-align: center;
@@ -12,7 +13,8 @@
                 font:
                     20px Helvetica,
                     sans-serif;
-                color: #333;
+                background: var(--body-bg);
+                color: var(--fg-1);
             }
 
             @media (min-width: 768px) {
@@ -33,33 +35,69 @@
             }
 
             a {
-                color: #dc8100;
+                color: var(--color-accent);
                 text-decoration: none;
             }
 
             a:hover {
-                color: #333;
+                color: var(--fg-1);
                 text-decoration: none;
             }
+
+            .g4-theme-toggle {
+                position: fixed;
+                top: var(--space-5);
+                right: var(--space-5);
+                z-index: var(--z-sticky);
+                width: 40px;
+                height: 40px;
+                border: 1px solid var(--border-subtle);
+                border-radius: var(--radius-pill);
+                background: var(--surface-2);
+                color: var(--fg-1);
+                font-size: var(--font-lg);
+                line-height: 1;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                transition:
+                    background var(--motion-base) var(--ease-standard),
+                    transform var(--motion-fast) var(--ease-standard);
+            }
+            .g4-theme-toggle:hover {
+                background: var(--surface-3);
+                transform: scale(1.06);
+            }
         </style>
+        <script src="../js/Theme.js" defer></script>
     </head>
 
     <body>
+        <button
+            type="button"
+            class="g4-theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle light/dark theme"
+            title="Toggle theme"
+        >
+            🌓
+        </button>
         <article>
-            <h1>We&rsquo;ll be back soon!</h1>
+            <h1>G4Meet is undergoing maintenance</h1>
             <div>
                 <p>
-                    Sorry for the inconvenience but we&rsquo;re performing some maintenance at the moment. If you need
-                    to you can always
-                    <a href="mailto:miroslav.pejic.85@gmail.com">contact us</a>, otherwise we&rsquo;ll be back online
+                    Sorry for the inconvenience, we're performing some maintenance at the moment. If you need to
+                    reach us, you can always
+                    <a href="mailto:miroslav.pejic.85@gmail.com">contact us</a>, otherwise we'll be back online
                     shortly!
                 </p>
                 <img src="https://media.giphy.com/media/dWesBcTLavkZuG35MI/giphy.gif" />
-                <p>&mdash; The MiroTalk Team</p>
+                <p>&mdash; The G4Meet Team</p>
             </div>
         </article>
     </body>
-    <!--  
+    <!--
 	# Under maintenance custom page
 	error_page 500 502 503 504 /50X.html;
 	location = /maintenance.html {

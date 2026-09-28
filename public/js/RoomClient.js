@@ -986,6 +986,7 @@ class RoomClient {
 
         this.producerTransport.on('connectionstatechange', async (state) => {
             console.log(`Producer Transport state changed to: ${state}`, { id: this.producerTransport.id });
+            if (window.updateNetworkStatusUI) window.updateNetworkStatusUI(state);
 
             switch (state) {
                 case 'connecting':
@@ -1064,6 +1065,7 @@ class RoomClient {
 
         this.consumerTransport.on('connectionstatechange', async (state) => {
             console.log(`Consumer Transport state changed to: ${state}`, { id: this.consumerTransport.id });
+            if (window.updateNetworkStatusUI) window.updateNetworkStatusUI(state);
 
             switch (state) {
                 case 'connecting':

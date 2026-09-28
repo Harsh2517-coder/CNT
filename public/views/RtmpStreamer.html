@@ -6,7 +6,7 @@
 
         <!-- Title and Icon -->
 
-        <title id="title">MiroTalk RTMP Streamer</title>
+        <title id="title">G4Meet RTMP Streamer</title>
         <link id="icon" rel="shortcut icon" href="../images/logo.svg" />
         <link id="appleTouchIcon" rel="apple-touch-icon" href="../images/logo.svg" />
 
@@ -19,7 +19,7 @@
         <meta
             id="description"
             name="description"
-            content="MiroTalk SFU powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
+            content="G4Meet powered by WebRTC and mediasoup, Real-time Simple Secure Fast video calls, messaging and screen sharing capabilities in the browser."
         />
 
         <!-- StyleSheet -->
@@ -41,8 +41,18 @@
         <script defer src="../js/Brand.js"></script>
         <script async src="../js/Translate.js"></script>
         <script defer src="../js/RtmpStreamer.js"></script>
+        <script src="../js/Theme.js" defer></script>
     </head>
     <body>
+        <button
+            type="button"
+            class="g4-theme-toggle"
+            data-theme-toggle
+            aria-label="Toggle light/dark theme"
+            title="Toggle theme"
+        >
+            🌓
+        </button>
         <div id="popup" class="popup fadein hidden">
             <span id="popupMessage"></span>
             <button id="closePopup"><i class="fas fa-close"></i></button>
@@ -85,7 +95,7 @@
             </div>
         </div>
         <footer id="footer">
-            <p>&copy; 2026 MiroTalk SFU, all rights reserved</p>
+            <p>&copy; 2026 G4Meet, all rights reserved</p>
         </footer>
     </body>
 </html>

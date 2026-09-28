@@ -1,29 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
-
 :root {
-    /* Base colors (keep simple for Dark Reader compatibility) */
+    /* NOTE: --cr-bg-color and --cr-text are read by CustomizeRoom.js
+       (ensureQrCode) as literal QR fill colors (dark-on-light QR), so they
+       are kept as fixed solid values -- not aliased to theme tokens that
+       could flip with the light/dark toggle and break QR contrast. */
     --cr-bg-color: #06070a;
-    --cr-bg-overlay:
-        radial-gradient(900px circle at 50% 10%, rgba(255, 255, 255, 0.06), transparent 55%),
-        radial-gradient(700px circle at 20% 70%, rgba(255, 255, 255, 0.035), transparent 60%);
-    --cr-bg-overlay-opacity: 1;
-
-    --cr-card-bg: rgba(255, 255, 255, 0.05);
-    --cr-card-border: rgba(255, 255, 255, 0.12);
-    --cr-card-border-strong: rgba(255, 255, 255, 0.18);
-
     --cr-text: rgba(255, 255, 255, 0.92);
-    --cr-text-muted: rgba(255, 255, 255, 0.7);
 
-    --cr-input-bg: rgba(255, 255, 255, 0.04);
-    --cr-input-border: rgba(255, 255, 255, 0.14);
-    --cr-input-border-focus: rgba(255, 255, 255, 0.28);
+    /* Local aliases onto the shared design tokens (Root.css) */
+    --cr-card-bg: var(--surface-2);
+    --cr-card-border: var(--border-subtle);
+    --cr-card-border-strong: var(--border-strong);
 
-    --cr-shadow: 0 18px 60px rgba(0, 0, 0, 0.55);
+    --cr-text-muted: var(--fg-2);
 
-    /* Accent */
-    --cr-accent-green: #22c55e;
-    --cr-accent-green-2: #16a34a;
+    --cr-input-bg: var(--surface-1);
+    --cr-input-border: var(--border-subtle);
+    --cr-input-border-focus: var(--border-strong);
+
+    --cr-shadow: 0 18px 60px rgba(0, 0, 0, 0.4);
+
+    /* Accent (toggles use the success color) */
+    --cr-accent-green: var(--color-success);
+    --cr-accent-green-2: var(--color-success);
 }
 
 * {
@@ -32,23 +30,13 @@
 
 html {
     height: 100%;
-    color-scheme: dark;
-    background-color: var(--cr-bg-color);
+    background: var(--body-bg);
 }
 
 body {
     min-height: 100%;
     margin: 0;
-    font-family:
-        Inter,
-        system-ui,
-        -apple-system,
-        Segoe UI,
-        Roboto,
-        Helvetica,
-        Arial,
-        sans-serif;
-    background-color: var(--cr-bg-color);
+    background: var(--body-bg);
     color: var(--cr-text);
     position: relative;
 }
@@ -61,10 +49,9 @@ body {
     align-items: center;
     justify-content: center;
     padding: 8px;
-    border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.12);
-    background: rgba(255, 255, 255, 0.04);
-    backdrop-filter: blur(10px);
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-1);
     z-index: 10;
     text-decoration: none;
     transition:
@@ -74,8 +61,8 @@ body {
 }
 
 .cr-home:hover {
-    background: rgba(255, 255, 255, 0.07);
-    border-color: rgba(255, 255, 255, 0.18);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
 }
 
 .cr-home:active {
@@ -83,7 +70,7 @@ body {
 }
 
 .cr-home:focus-visible {
-    outline: 3px solid rgba(255, 255, 255, 0.25);
+    outline: 3px solid var(--color-focus);
     outline-offset: 2px;
 }
 
@@ -91,15 +78,39 @@ body {
     display: block;
 }
 
-/* Subtle ambient overlay (kept separate so Dark Reader has less to "interpret") */
-body::before {
-    content: '';
+.g4-theme-toggle {
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-md);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-1);
+    color: var(--cr-text);
+    font-size: 16px;
+    line-height: 1;
+    cursor: pointer;
+    transition:
+        background 160ms ease,
+        border-color 160ms ease,
+        transform 120ms ease;
+}
+
+.g4-theme-toggle:hover {
+    background: var(--surface-2);
+    border-color: var(--border-strong);
+}
+
+.g4-theme-toggle:active {
+    transform: scale(0.94);
+}
+
+.cr-theme-toggle {
     position: fixed;
-    inset: 0;
-    background: var(--cr-bg-overlay);
-    opacity: var(--cr-bg-overlay-opacity);
-    pointer-events: none;
-    z-index: -1;
+    top: 14px;
+    right: 14px;
+    z-index: 10;
 }
 
 .cr-page {
@@ -169,7 +180,7 @@ body::before {
 }
 
 .cr-input::placeholder {
-    color: rgba(255, 255, 255, 0.4);
+    color: var(--fg-muted);
 }
 
 .cr-input:focus {
@@ -194,8 +205,8 @@ body::before {
     height: 36px;
     padding: 0 12px;
     border-radius: 14px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-1);
     color: var(--cr-text);
     font-weight: 700;
     cursor: pointer;
@@ -206,8 +217,8 @@ body::before {
 }
 
 .cr-input-action:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
 }
 
 .cr-input-action:active {
@@ -234,7 +245,7 @@ body::before {
     padding: 14px 14px;
     border-radius: 14px;
     border: 1px solid var(--cr-card-border);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--surface-1);
     cursor: pointer;
     user-select: none;
     transition:
@@ -246,7 +257,7 @@ body::before {
 .cr-toggle:focus-within,
 .cr-toggle:hover {
     border-color: var(--cr-card-border-strong);
-    background: rgba(255, 255, 255, 0.05);
+    background: var(--surface-2);
 }
 
 .cr-toggle:active {
@@ -281,8 +292,8 @@ body::before {
     width: 54px;
     height: 32px;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.14);
-    border: 1px solid rgba(255, 255, 255, 0.14);
+    background: var(--surface-3);
+    border: 1px solid var(--surface-3);
     position: relative;
     transition:
         background 160ms ease,
@@ -354,7 +365,7 @@ body::before {
 .cr-error {
     margin: 0;
     font-size: 13px;
-    color: rgba(255, 138, 138, 0.95);
+    color: var(--color-danger);
 }
 
 .cr-preview-row {
@@ -381,8 +392,8 @@ body::before {
     height: 48px;
     padding: 0 14px;
     border-radius: 16px;
-    border: 1px solid rgba(255, 255, 255, 0.16);
-    background: rgba(255, 255, 255, 0.06);
+    border: 1px solid var(--border-subtle);
+    background: var(--surface-1);
     color: var(--cr-text);
     font-weight: 700;
     cursor: pointer;
@@ -396,8 +407,8 @@ body::before {
 }
 
 .cr-copy:hover {
-    background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.22);
+    background: var(--surface-2);
+    border-color: var(--border-strong);
 }
 
 .cr-copy:active {
@@ -414,7 +425,7 @@ body::before {
     padding: 12px;
     border-radius: 14px;
     border: 1px solid var(--cr-card-border);
-    background: rgba(255, 255, 255, 0.03);
+    background: var(--surface-1);
     display: grid;
     gap: 10px;
     place-items: center;

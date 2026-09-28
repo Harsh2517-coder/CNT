@@ -25,16 +25,16 @@
     gap: 6px;
     font-size: 13px;
     font-weight: 600;
-    color: rgba(255, 255, 255, 0.85);
+    color: var(--fg-1, rgba(255, 255, 255, 0.85));
 }
 
 .sch-icon {
     font-size: 12px;
-    color: rgba(59, 130, 246, 0.9);
+    color: var(--color-accent, #3b82f6);
 }
 
 .sch-required {
-    color: rgba(239, 68, 68, 0.85);
+    color: var(--color-danger, #ef4444);
     font-size: 12px;
 }
 
@@ -44,10 +44,10 @@
     padding: 0 12px;
     margin: 0;
     box-sizing: border-box;
-    border-radius: 10px;
-    border: 1px solid rgba(255, 255, 255, 0.14);
-    background: rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.92);
+    border-radius: var(--radius-sm, 10px);
+    border: 1px solid var(--border-subtle, rgba(255, 255, 255, 0.14));
+    background: var(--surface-1, rgba(255, 255, 255, 0.06));
+    color: var(--fg-1, rgba(255, 255, 255, 0.92));
     font-size: 14px;
     font-family: inherit;
     outline: none;
@@ -57,18 +57,18 @@
 }
 
 .sch-input::placeholder {
-    color: rgba(255, 255, 255, 0.35);
+    color: var(--fg-muted, rgba(255, 255, 255, 0.35));
 }
 
 .sch-input:focus {
-    border-color: rgba(59, 130, 246, 0.6);
-    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+    border-color: var(--color-accent, #3b82f6);
+    box-shadow: 0 0 0 3px var(--color-accent-soft, rgba(59, 130, 246, 0.15));
 }
 
 .sch-hint {
     margin: 0;
     font-size: 12px;
-    color: rgba(255, 255, 255, 0.72);
+    color: var(--fg-2, rgba(255, 255, 255, 0.72));
 }
 
 /* Rounded Swal popup & buttons */
@@ -80,16 +80,15 @@
     border-radius: 8px !important;
 }
 
-/* Schedule Meeting Button (landing / newroom) */
+/* Schedule Meeting Button (landing / newroom / login) */
 .schedule-meeting-btn {
-    margin-top: 8px;
+    margin-top: var(--space-3, 8px);
     width: 100%;
-    max-width: 420px;
-    height: 44px;
-    border-radius: 10px;
-    border: 1px solid rgba(59, 130, 246, 0.5);
-    background: rgba(59, 130, 246, 0.15);
-    color: #fff;
+    height: 48px;
+    border-radius: var(--radius-md, 10px);
+    border: 1px solid var(--border-subtle, rgba(59, 130, 246, 0.5));
+    background: var(--surface-1, rgba(59, 130, 246, 0.15));
+    color: var(--fg-1, #fff);
     font-size: 15px;
     font-weight: 600;
     cursor: pointer;
@@ -100,8 +99,8 @@
 }
 
 .schedule-meeting-btn:hover {
-    background: rgba(59, 130, 246, 0.3);
-    border-color: rgba(59, 130, 246, 0.7);
+    background: var(--surface-2, rgba(59, 130, 246, 0.3));
+    border-color: var(--border-strong, rgba(59, 130, 246, 0.7));
 }
 
 .schedule-meeting-btn:active {

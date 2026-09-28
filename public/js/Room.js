@@ -1743,6 +1743,7 @@ function joinRoom(peer_name, room_id) {
     } else {
         console.log('05 ----> join Room ' + room_id);
         roomId.innerText = room_id;
+        if (topBarMeetingId) topBarMeetingId.innerText = room_id;
         userName.innerText = peer_name;
         isUserPresenter.innerText = isPresenter;
         rc = new RoomClient(
@@ -1927,6 +1928,7 @@ function roomIsReady() {
     handleButtonsBar();
     handleDropdownHover();
     setupSettingsExtraDropdown();
+    setupTopBar();
     setupQuickDeviceSwitchDropdowns();
     checkButtonsBar();
     checkBreakoutRoom();
@@ -4398,7 +4400,7 @@ function leaveFeedback(allowCancel, disconnectAll = false) {
         imageUrl: image.feedback,
         position: 'top',
         title: 'Leave a feedback',
-        text: 'Do you want to rate your MiroTalk experience?',
+        text: 'Do you want to rate your G4Meet experience?',
         confirmButtonText: `Yes`,
         denyButtonText: `No`,
         cancelButtonText: `Cancel`,
@@ -4757,6 +4759,81 @@ function handleClickOutside(targetElement, triggerElement, callback, minWidth = 
 
 function getId(id) {
     return document.getElementById(id);
+}
+
+// ####################################################
+// TOP BAR / NETWORK STATUS
+// ####################################################
+
+/**
+ * Updates the top-bar network status dot/label from a real mediasoup transport
+ * connectionState ('new'|'connecting'|'connected'|'disconnected'|'failed'|'closed').
+ * Called by RoomClient.js's producer/consumer transport 'connectionstatechange' handlers.
+ * There is no latency/packet-loss/jitter/bitrate data available anywhere in this app -
+ * the popover only ever shows the real state, never fabricated numbers.
+ */
+function updateNetworkStatusUI(state) {
+    const indicator = getId('networkStatusIndicator');
+    const dot = getId('networkStatusDot');
+    const label = getId('networkStatusLabel');
+    const popoverState = getId('networkStatusPopoverState');
+    if (!indicator || !dot || !label) return;
+
+    let cssClass = 'is-connecting';
+    let text = 'Reconnecting';
+    switch (state) {
+        case 'connected':
+            cssClass = 'is-connected';
+            text = 'Connected';
+            break;
+        case 'failed':
+        case 'closed':
+            cssClass = 'is-failed';
+            text = 'Connection lost';
+            break;
+        case 'connecting':
+        case 'disconnected':
+        case 'new':
+        default:
+            cssClass = 'is-connecting';
+            text = 'Reconnecting';
+            break;
+    }
+
+    indicator.classList.remove('is-connected', 'is-connecting', 'is-failed');
+    indicator.classList.add(cssClass);
+    label.innerText = text;
+    if (popoverState) popoverState.innerText = state;
+}
+window.updateNetworkStatusUI = updateNetworkStatusUI;
+
+function setupTopBar() {
+    const meetingIdBtn = getId('topBarMeetingIdButton');
+    if (meetingIdBtn) {
+        meetingIdBtn.onclick = () => roomId.click();
+    }
+
+    const topSettingsBtn = getId('topBarSettingsButton');
+    if (topSettingsBtn) {
+        topSettingsBtn.onclick = () => settingsButton.click();
+    }
+
+    const indicator = getId('networkStatusIndicator');
+    const popover = getId('networkStatusPopover');
+    if (indicator && popover) {
+        indicator.onclick = (e) => {
+            e.stopPropagation();
+            const isHidden = popover.classList.contains('hidden');
+            isHidden ? show(popover) : hide(popover);
+            indicator.setAttribute('aria-expanded', String(isHidden));
+        };
+        document.addEventListener('click', (e) => {
+            if (!popover.classList.contains('hidden') && !popover.contains(e.target) && e.target !== indicator) {
+                hide(popover);
+                indicator.setAttribute('aria-expanded', 'false');
+            }
+        });
+    }
 }
 
 // ####################################################
